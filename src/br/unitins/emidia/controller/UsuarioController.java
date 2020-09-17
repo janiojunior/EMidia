@@ -4,13 +4,12 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.enterprise.context.RequestScoped;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
 import br.unitins.emidia.application.Util;
+import br.unitins.emidia.model.Perfil;
+import br.unitins.emidia.model.Sexo;
 import br.unitins.emidia.model.Usuario;
 
 @Named
@@ -21,8 +20,12 @@ public class UsuarioController implements Serializable {
 	
 	private Usuario usuario; 
 	private List<Usuario> listaUsuario; 
+	private int id = 0;
 
 	public void incluir() {
+		
+		getUsuario().setId(++id);
+		
 		int index = getListaUsuario().indexOf(getUsuario());
 		if (index != -1) {
 			Util.addMessage("Não é possivel fazer uma inclusão. O id do usuário ja existe.");
@@ -62,7 +65,18 @@ public class UsuarioController implements Serializable {
 	}
   	
 	public void limpar() {
+		System.out.println("\n\n\n\n");
+		System.out.println(getUsuario().getId());
+		System.out.println("\n\n\n\n");
 		usuario = null;
+	}
+	
+	public Sexo[] getListaSexo() {
+		return Sexo.values();
+	}
+	
+	public Perfil[] getListaPerfil() {
+		return Perfil.values();
 	}
 	
 	public List<Usuario> getListaUsuario() {

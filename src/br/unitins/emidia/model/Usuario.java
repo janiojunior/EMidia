@@ -9,8 +9,8 @@ public class Usuario implements Cloneable {
 	private String email;
 	private LocalDate dataNascimento;
 	private String senha;
-	private String sexo;
-	private String perfil;
+	private Sexo sexo;
+	private Perfil perfil;
 	private String cidade;
 
 	public Integer getId() {
@@ -53,19 +53,19 @@ public class Usuario implements Cloneable {
 		this.senha = senha;
 	}
 
-	public String getSexo() {
+	public Sexo getSexo() {
 		return sexo;
 	}
 
-	public void setSexo(String sexo) {
+	public void setSexo(Sexo sexo) {
 		this.sexo = sexo;
 	}
 
-	public String getPerfil() {
+	public Perfil getPerfil() {
 		return perfil;
 	}
 
-	public void setPerfil(String perfil) {
+	public void setPerfil(Perfil perfil) {
 		this.perfil = perfil;
 	}
 
