@@ -28,13 +28,13 @@ public class UsuarioController implements Serializable {
 		
 		int index = getListaUsuario().indexOf(getUsuario());
 		if (index != -1) {
-			Util.addMessage("Não é possivel fazer uma inclusão. O id do usuário ja existe.");
+			Util.addErrorMessage("Não é possivel fazer uma inclusão. O id do usuário ja existe.");
 			return;
 		}
 		
 		getListaUsuario().add(getUsuario());
 		limpar();
-		Util.addMessage("Inclusão realizada com sucesso.");
+		Util.addInfoMessage("Inclusão realizada com sucesso.");
 	}
 	
 	public void editar(Usuario usu) {
@@ -61,7 +61,7 @@ public class UsuarioController implements Serializable {
 	public void excluir(Usuario usu) {
 		getListaUsuario().remove(usu);
 		limpar();
-		Util.addMessage("Exclusão realizada com sucesso.");
+		Util.addInfoMessage("Exclusão realizada com sucesso.");
 	}
   	
 	public void limpar() {

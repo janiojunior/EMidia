@@ -9,10 +9,16 @@
 	<h1>Acesso ao Sistema</h1>
 
 	<h:form>
+		<h:messages style="color:red"/>
 		<h:panelGrid columns="2">
 
 			<h:outputLabel value="Usuário:" />
-			<h:inputText value="#{loginController.usuario}" />
+			<h:panelGroup>
+				<h:inputText id="itUsuario" 
+							 value="#{loginController.usuario}"
+							 immediate="true"/>
+				<h:message for="itUsuario"/>
+			</h:panelGroup>
 
 			<h:outputLabel value="Senha:" />
 			<h:inputText value="#{loginController.senha}" />

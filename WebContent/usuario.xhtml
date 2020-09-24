@@ -9,18 +9,44 @@
 	<h1 style="">Cadastro de Usuário</h1>
 
 	<h:form>
-		<h:messages style="color:red"/>
+		<h:messages 
+			errorStyle="color:red"
+			infoStyle="color:green"
+			warnStyle="color:orange"
+			globalOnly="true" 
+			showDetail="false"/>
 		<h:panelGrid columns="2">
 			
 			<h:outputLabel value="Nome:" />
-			<h:inputText value="#{usuarioController.usuario.nome}"
-					required="true" requiredMessage="O nome deve ser informado." />
+			<h:panelGroup>
+				<h:inputText id="itNome" value="#{usuarioController.usuario.nome}"
+						required="true"
+						requiredMessage="O nome deve ser informado." 
+						validatorMessage="Informe um valor entre 2 e 60" >
+					<f:validateLength minimum="2" maximum="60" />
+				</h:inputText>
+				<h:message for="itNome" style="color:red"/>
+			</h:panelGroup>
+			
+			<h:outputLabel value="Cpf:" />
+			<h:panelGroup>
+				<h:inputText id="itCpf" value="#{usuarioController.usuario.cpf}"
+						validatorMessage="Cpf inválido. Ex. 999.999.999-99" >
+						111.111.111-11
+					<f:validateRegex 
+						pattern="(^[0-9]{3}\.{1}[0-9]{3}\.{1}[0-9]{3}\-{1}[0-9]{2})|([0-9]{11})"/>
+				</h:inputText>
+				<h:message for="itCpf" style="color:red"/>
+			</h:panelGroup>			
 			
 			<h:outputLabel value="Data Nascimento:" />
-			<h:inputText value="#{usuarioController.usuario.dataNascimento}" >
-				<f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
-			</h:inputText>
-			
+			<h:panelGroup>
+				<h:inputText id="itData" value="#{usuarioController.usuario.dataNascimento}" 
+					converterMessage="Erro ao converter a data">
+					<f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
+				</h:inputText>
+				<h:message for="itData" style="color:red"/>
+			</h:panelGroup>
 			<h:outputLabel value="Sexo:" />
 			<h:selectOneMenu value="#{usuarioController.usuario.sexo}">
 				<f:selectItem itemLabel="Selecione ..." />
@@ -37,10 +63,21 @@
 			</h:selectOneRadio>			
 									
 			<h:outputLabel value="E-mail:" />
-			<h:inputText value="#{usuarioController.usuario.email}" />						
+			<h:panelGroup>
+				<h:inputText id="itEmail" 
+							 value="#{usuarioController.usuario.email}" 
+							 validatorMessage="Email inválido.">
+					<f:validateRegex 
+						pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"/>
+				</h:inputText>	
+				<h:message for="itEmail" style="color:red"/>					
+			 </h:panelGroup>
 
 			<h:outputLabel value="Senha:" />
-			<h:inputSecret value="#{usuarioController.usuario.senha}" />	
+			<h:panelGroup>
+				<h:inputSecret id="isSenha" value="#{usuarioController.usuario.senha}" />	
+				<h:message for="isSenha" style="color:red"/>					
+			 </h:panelGroup>			
 
 		</h:panelGrid>
 

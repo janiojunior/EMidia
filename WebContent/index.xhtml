@@ -8,5 +8,11 @@
 </h:head>
 <h:body>
 	<h1>Hello, world!</h1>
+	<h:form>
+		<h:commandButton value="Abrindo página via forward" 
+					action="usuario.xhtml"/>
+		<h:commandButton value="Abrindo página via redirect" 
+					action="usuario.xhtml?faces-redirect=true"/>			
+	</h:form>
 </h:body>
 </html>

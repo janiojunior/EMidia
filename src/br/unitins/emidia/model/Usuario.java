@@ -2,12 +2,21 @@ package br.unitins.emidia.model;
 
 import java.time.LocalDate;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
+
 public class Usuario implements Cloneable {
 
 	private Integer id;
 	private String nome;
+	private String cpf;
+	
+	@NotBlank(message = "O email não pode ser nulo.")
 	private String email;
 	private LocalDate dataNascimento;
+
+	@Size(min = 6, max = 10, message = "A senha deve conter no mínimo 6 dígitos e maximo 10.")
+	@NotBlank(message = "A senha não pode ser nula.")
 	private String senha;
 	private Sexo sexo;
 	private Perfil perfil;
@@ -27,6 +36,14 @@ public class Usuario implements Cloneable {
 
 	public void setNome(String nome) {
 		this.nome = nome;
+	}
+
+	public String getCpf() {
+		return cpf;
+	}
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
 	}
 
 	public String getEmail() {
