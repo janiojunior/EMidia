@@ -25,7 +25,7 @@ public class LoginController  {
 //	private UIComponent usuarioUIComponent;
 
 	public void entrar() {
-		
+
 		if (getUsuario().isBlank()) {
 			Util.addErrorMessage("O campo usuario nao pode ser nulo. 2");
 			return;
@@ -43,7 +43,15 @@ public class LoginController  {
 //		Util.addErrorMessage(getUsuarioUIComponent().getClientId(),
 //							"O usuário não existe.");
 	}
-
+	
+	public void validarLogin(String idComponent) {
+		UIComponent comp = Util.findComponent(idComponent);
+		
+		if (!usuario.equals("janio")) {
+			Util.addErrorMessage(comp.getClientId(), "Usuário inválido.");
+		}
+	}
+	
 	public void limpar() {
 		System.out.println("Limpar");
 		usuario = "blah";

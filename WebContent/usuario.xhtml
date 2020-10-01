@@ -83,22 +83,28 @@
 
 		<h:commandButton value="Incluir"
 			actionListener="#{usuarioController.incluir()}" 
-			disabled="#{usuarioController.usuario.id != null}"/>
+			disabled="#{usuarioController.usuario.id != null}">
+			<f:ajax execute="@form" render="@form formDataTable"/>
+		</h:commandButton>	
 			
 		<h:commandButton value="Alterar"
 			actionListener="#{usuarioController.alterar()}" 
-			disabled="#{usuarioController.usuario.id == null}"/>
-
-	</h:form>	
-	<h:form>		
+			disabled="#{usuarioController.usuario.id == null}">
+			<f:ajax execute="@form" render="@form formDataTable"/>
+		</h:commandButton>	
+		
 		<h:commandButton value="Excluir"
 			actionListener="#{usuarioController.excluir()}" 
-			disabled="#{usuarioController.usuario.id == null}"/>
+			disabled="#{usuarioController.usuario.id == null}">
+			<f:ajax execute="@this" render="@form formDataTable"/>
+		</h:commandButton>
 	
 		<h:commandButton value="Limpar"
-			actionListener="#{usuarioController.limpar}" />
-	</h:form>
-	<h:form>		
+			actionListener="#{usuarioController.limpar}" >
+			<f:ajax execute="@this" render="@form"/>
+		</h:commandButton>
+	</h:form>	
+	<h:form id="formDataTable">		
 		<h:dataTable style="" value="#{usuarioController.listaUsuario}" var="obj">
 			<h:column>
 				<f:facet name="header">Id</f:facet>		

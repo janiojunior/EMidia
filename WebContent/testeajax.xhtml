@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt-br" 
+	xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:f="http://xmlns.jcp.org/jsf/core"
+	xmlns:h="http://xmlns.jcp.org/jsf/html">
+<h:head>
+	<title>Hello, World 2!</title>
+</h:head>
+<h:body>
+
+	<h:form >
+		<h1>Teste de Ajax
+			<f:ajax 
+						event="click"
+						listener="#{testeAjax.imprimir}"
+						render="output1" 
+						execute="input"/>
+		</h1>
+		<h:inputText id="input" value="#{testeAjax.nome}">
+			<f:ajax 
+				event="click"
+				listener="#{testeAjax.imprimir}"
+				render="output1" 
+				execute="input"/>
+		</h:inputText>
+	
+		<h:commandButton value="Click (Autaliza Label 1)" actionListener="#{testeAjax.imprimir}">
+			<f:ajax render="output1" execute="input"/>
+		</h:commandButton>
+		<h:commandButton value="Click (Atualiza Label 1 e 2)" actionListener="#{testeAjax.imprimir}">
+			<f:ajax render="output1 output2" execute="input"/>
+		</h:commandButton>
+		<h:commandButton value="Atualiza Label 3" actionListener="#{testeAjax.imprimir}">
+			<f:ajax render="output3" execute="input"/>
+		</h:commandButton>
+		<h:commandButton value="Atualiza Todo Mundo" actionListener="#{testeAjax.imprimir}">
+			<f:ajax render="@form" execute="input"/>
+		</h:commandButton>
+		
+		<br/>
+		<h:outputLabel id="output1" value="#{testeAjax.nome}"/>
+		<br/>
+		<h:outputLabel id="output2" value="#{testeAjax.nome}"/>
+		<br/>
+		<h:outputLabel id="output3" value="#{testeAjax.nome}"/>
+		
+		<br/>
+		<h:outputLabel value="Blur"/>
+		<h:inputText id="iblur" value="#{testeAjax.nome}">
+			<f:ajax 
+				event="blur"
+				listener="#{testeAjax.imprimir}"
+				render="oblur" 
+				execute="iblur"/>
+				
+			<f:ajax 
+				event="click"
+				listener="#{testeAjax.imprimir}"
+				render="oblur" 
+				execute="iblur"/>	
+		</h:inputText>
+		<h:outputLabel id="oblur" value="#{testeAjax.nome}"/>
+		
+		<br/>
+		<h:outputLabel value="Mouse Over" >
+			<f:ajax 
+					event="mouseover"
+					listener="#{testeAjax.imprimir}"
+					render="omouseover" 
+					execute="imouseover"/>
+		</h:outputLabel>
+		<h:inputText id="imouseover" value="#{testeAjax.nome}">
+				
+		</h:inputText>
+		<h:outputLabel id="omouseover" value="#{testeAjax.nome}"/>
+		
+		<br/>
+		<h:outputLabel value="Change" />
+			
+		<h:inputText id="iChange" value="#{testeAjax.nome}">
+			<f:ajax 
+				event="change"
+				listener="#{testeAjax.imprimir}"
+				render="oChange" 
+				execute="iChange"/>
+		</h:inputText>
+		<h:outputLabel id="oChange" value="#{testeAjax.nome}"/>
+		
+	</h:form>
+</h:body>
+</html>

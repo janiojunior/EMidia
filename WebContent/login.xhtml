@@ -9,15 +9,20 @@
 	<h1>Acesso ao Sistema</h1>
 
 	<h:form>
-		<h:messages style="color:red"/>
+		<h:messages id="messages" style="color:red" globalOnly="true"/>
 		<h:panelGrid columns="2">
 
 			<h:outputLabel value="Usuário:" />
 			<h:panelGroup>
 				<h:inputText id="itUsuario" 
-							 value="#{loginController.usuario}"
-							 immediate="true"/>
-				<h:message for="itUsuario"/>
+							 value="#{loginController.usuario}">
+					<f:ajax event="blur" 
+						listener="#{loginController.validarLogin('itUsuario')}"
+						execute="itUsuario" 
+						render="messages messageUsuario"/>
+				</h:inputText>
+				
+				<h:message id="messageUsuario" for="itUsuario" style="color:red"/>
 			</h:panelGroup>
 
 			<h:outputLabel value="Senha:" />
