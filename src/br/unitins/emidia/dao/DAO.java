@@ -8,8 +8,9 @@ import java.util.List;
 public interface DAO<T> {
 	public void inserir(T obj) throws Exception;
 	public void alterar(T obj) throws Exception;
-	public void excluir(Integer id) throws Exception;
+	public void excluir(T obj) throws Exception;
 	public List<T> obterTodos() throws Exception;
+	public T obterUm(T obj) throws Exception;
 	
 	public static Connection getConnection() {
 		Connection conn = null;

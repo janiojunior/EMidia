@@ -19,7 +19,7 @@
 			
 			<h:outputLabel value="Nome:" />
 			<h:panelGroup>
-				<h:inputText id="itNome" value="#{usuarioController.usuario.nome}"
+				<h:inputText id="itNome" value="#{usuarioController.entity.nome}"
 						required="true"
 						requiredMessage="O nome deve ser informado." 
 						validatorMessage="Informe um valor entre 2 e 60" >
@@ -30,7 +30,7 @@
 			
 			<h:outputLabel value="Cpf:" />
 			<h:panelGroup>
-				<h:inputText id="itCpf" value="#{usuarioController.usuario.cpf}"
+				<h:inputText id="itCpf" value="#{usuarioController.entity.cpf}"
 						validatorMessage="Cpf inválido. Ex. 999.999.999-99" >
 						111.111.111-11
 					<f:validateRegex 
@@ -41,14 +41,14 @@
 			
 			<h:outputLabel value="Data Nascimento:" />
 			<h:panelGroup>
-				<h:inputText id="itData" value="#{usuarioController.usuario.dataNascimento}" 
+				<h:inputText id="itData" value="#{usuarioController.entity.dataNascimento}" 
 					converterMessage="Erro ao converter a data">
 					<f:convertDateTime type="localDate" pattern="dd/MM/yyyy" />
 				</h:inputText>
 				<h:message for="itData" style="color:red"/>
 			</h:panelGroup>
 			<h:outputLabel value="Sexo:" />
-			<h:selectOneMenu value="#{usuarioController.usuario.sexo}">
+			<h:selectOneMenu value="#{usuarioController.entity.sexo}">
 				<f:selectItem itemLabel="Selecione ..." />
 				<f:selectItems value="#{usuarioController.listaSexo}" 
 							   var="obj"
@@ -56,7 +56,7 @@
 			</h:selectOneMenu>
 				
 			<h:outputLabel value="Perfil:" />
-			<h:selectOneRadio value="#{usuarioController.usuario.perfil}">
+			<h:selectOneRadio value="#{usuarioController.entity.perfil}">
 				<f:selectItems value="#{usuarioController.listaPerfil}" 
 							   var="obj"
 							   itemLabel="#{obj.label}"/>
@@ -65,7 +65,7 @@
 			<h:outputLabel value="E-mail:" />
 			<h:panelGroup>
 				<h:inputText id="itEmail" 
-							 value="#{usuarioController.usuario.email}" 
+							 value="#{usuarioController.entity.email}" 
 							 validatorMessage="Email inválido.">
 					<f:validateRegex 
 						pattern="^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+\.[a-zA-Z0-9-.]+$"/>
@@ -75,7 +75,7 @@
 
 			<h:outputLabel value="Senha:" />
 			<h:panelGroup>
-				<h:inputSecret id="isSenha" value="#{usuarioController.usuario.senha}" />	
+				<h:inputSecret id="isSenha" value="#{usuarioController.entity.senha}" />	
 				<h:message for="isSenha" style="color:red"/>					
 			 </h:panelGroup>			
 
@@ -83,19 +83,19 @@
 
 		<h:commandButton value="Incluir"
 			actionListener="#{usuarioController.incluir()}" 
-			disabled="#{usuarioController.usuario.id != null}">
+			disabled="#{usuarioController.entity.id != null}">
 			<f:ajax execute="@form" render="@form formDataTable"/>
 		</h:commandButton>	
 			
 		<h:commandButton value="Alterar"
 			actionListener="#{usuarioController.alterar()}" 
-			disabled="#{usuarioController.usuario.id == null}">
+			disabled="#{usuarioController.entity.id == null}">
 			<f:ajax execute="@form" render="@form formDataTable"/>
 		</h:commandButton>	
 		
 		<h:commandButton value="Excluir"
 			actionListener="#{usuarioController.excluir()}" 
-			disabled="#{usuarioController.usuario.id == null}">
+			disabled="#{usuarioController.entity.id == null}">
 			<f:ajax execute="@this" render="@form formDataTable"/>
 		</h:commandButton>
 	
@@ -105,7 +105,7 @@
 		</h:commandButton>
 	</h:form>	
 	<h:form id="formDataTable">		
-		<h:dataTable style="" value="#{usuarioController.listaUsuario}" var="obj">
+		<h:dataTable style="" value="#{usuarioController.listaEntity}" var="obj">
 			<h:column>
 				<f:facet name="header">Id</f:facet>		
 				<h:outputLabel value="#{obj.id}"/>	
@@ -120,7 +120,7 @@
 			<h:column>
 				<f:facet name="header">Data Nascimento</f:facet>		
 				<h:outputLabel value="#{obj.dataNascimento}">
-					<f:convertDateTime type="localDate" pattern="MM-yyyy" />
+					<f:convertDateTime type="localDate" pattern="dd-MM-yyyy" />
 				</h:outputLabel>	
 			</h:column>	
 			

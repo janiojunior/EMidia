@@ -1,13 +1,8 @@
 package br.unitins.emidia.controller;
 
-import java.io.Serializable;
-
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
-import javax.faces.view.ViewScoped;
 import javax.inject.Named;
-import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.Size;
 
 import br.unitins.emidia.application.Util;
 

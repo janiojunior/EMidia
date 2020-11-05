@@ -7,29 +7,36 @@ import br.unitins.emidia.model.Produto;
 public class ProdutoDAO implements DAO<Produto> {
 
 	@Override
-	public void inserir(Produto obj) {
-		// TODO Auto-generated method stub
-	//	return true;
-	}
-
-	@Override
-	public void alterar(Produto obj) {
+	public void inserir(Produto obj) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public void excluir(Integer id) {
+	public void alterar(Produto obj) throws Exception {
 		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
-	public List<Produto> obterTodos() {
+	public void excluir(Produto obj) throws Exception {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public List<Produto> obterTodos() throws Exception {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
+	@Override
+	public Produto obterUm(Produto obj) throws Exception {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	
 
 	
 
