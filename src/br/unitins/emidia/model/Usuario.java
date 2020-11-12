@@ -15,12 +15,13 @@ public class Usuario implements Cloneable {
 	private String email;
 	private LocalDate dataNascimento;
 
-	@Size(min = 6, max = 10, message = "A senha deve conter no mínimo 6 dígitos e maximo 10.")
+	@Size(min = 3, max = 10, message = "A senha deve conter no mínimo 6 dígitos e maximo 10.")
 	@NotBlank(message = "A senha não pode ser nula.")
 	private String senha;
 	private Sexo sexo;
 	private Perfil perfil;
-	private String cidade;
+	
+	private Telefone telefone;
 
 	public Integer getId() {
 		return id;
@@ -86,12 +87,12 @@ public class Usuario implements Cloneable {
 		this.perfil = perfil;
 	}
 
-	public String getCidade() {
-		return cidade;
+	public Telefone getTelefone() {
+		return telefone;
 	}
 
-	public void setCidade(String cidade) {
-		this.cidade = cidade;
+	public void setTelefone(Telefone telefone) {
+		this.telefone = telefone;
 	}
 
 	@Override

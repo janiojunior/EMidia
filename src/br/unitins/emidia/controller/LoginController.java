@@ -2,72 +2,49 @@ package br.unitins.emidia.controller;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.component.UIComponent;
+import javax.faces.context.FacesContext;
 import javax.inject.Named;
 
+import br.unitins.emidia.application.Session;
 import br.unitins.emidia.application.Util;
+import br.unitins.emidia.dao.UsuarioDAO;
+import br.unitins.emidia.model.Usuario;
 
 @Named
 @RequestScoped
-public class LoginController  {
+public class LoginController {
 
-//	@NotBlank(message = "O usuario não pode ser nulo.")
-	private String usuario;
-	
-//	@Size(min = 6, max = 10, message = "A senha deve conter no mínimo 6 dígitos e maximo 10.")
-//	@NotBlank(message = "A senha não pode ser nula.")
-	private String senha;
-	
-//	private UIComponent usuarioUIComponent;
+	private Usuario usuario;
 
-	public void entrar() {
-
-		if (getUsuario().isBlank()) {
-			Util.addErrorMessage("O campo usuario nao pode ser nulo. 2");
-			return;
-		}
+	public void logar() {
 		
-		if (getUsuario().equals("janio") && 
-				getSenha().equals("123")) {
-			Util.redirect("usuario.xhtml");
-		}
-		UIComponent component = Util.findComponent("itUsuario");
-		Util.addErrorMessage(component.getClientId(),
-				"O usuário não existe.");
+		UsuarioDAO dao = new UsuarioDAO();
+		try {
+			Usuario usuarioLogado = 
+					dao.obterUsuario(getUsuario().getEmail(), 
+							Util.hash(getUsuario().getEmail()+getUsuario().getSenha()));
+			if (usuarioLogado == null)
+				Util.addErrorMessage("Usuário ou senha inválido.");
+			else {
+				// Usuario existe com as credenciais
+				Session.getInstance().setAttribute("usuarioLogado", usuarioLogado);
+				Util.redirect("template.xhtml");
+			}
 				
-//		System.out.println("Cliente Id: ".concat(getUsuarioUIComponent().getClientId()));
-//		Util.addErrorMessage(getUsuarioUIComponent().getClientId(),
-//							"O usuário não existe.");
-	}
-	
-	public void validarLogin(String idComponent) {
-		UIComponent comp = Util.findComponent(idComponent);
-		
-		if (!usuario.equals("janio")) {
-			Util.addErrorMessage(comp.getClientId(), "Usuário inválido.");
+		} catch (Exception e) {
+			e.printStackTrace();
+			Util.addErrorMessage("Problema ao verificar o Login. Entre em contato pelo email: contato@email.com.br");
 		}
 	}
-	
-	public void limpar() {
-		System.out.println("Limpar");
-		usuario = "blah";
-		senha = "";
-	}
 
-	public String getUsuario() {
+	public Usuario getUsuario() {
+		if (usuario == null)
+			usuario = new Usuario();
 		return usuario;
 	}
 
-	public void setUsuario(String usuario) {
+	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
-	public String getSenha() {
-		return senha;
-	}
-
-	public void setSenha(String senha) {
-		this.senha = senha;
-	}
-
-	
 }

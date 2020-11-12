@@ -11,9 +11,20 @@ import javax.faces.component.visit.VisitContext;
 import javax.faces.component.visit.VisitResult;
 import javax.faces.context.FacesContext;
 
+import org.apache.commons.codec.digest.DigestUtils;
+
 import com.sun.faces.component.visit.FullVisitContext;
 
 public class Util {
+	
+	public static void main(String[] args) {
+		System.out.println(Util.hash("janiojunior@gmail.com123"));
+		System.out.println(Util.hash("122"));
+		System.out.println(Util.hash("135"));
+		System.out.println(Util.hash("245"));
+		System.out.println(Util.hash("356"));
+		System.out.println(Util.hash("a665a45920422f9d417e4867efdc4fb8a04a1f3fff1fa07e998e86f7f7a27ae3"));
+	}
 	
 	public static void addErrorMessage(String msg) {
 		addMessage(null, FacesMessage.SEVERITY_ERROR, msg);
@@ -66,4 +77,8 @@ public class Util {
 
 	    return found[0];
 	}	
+	
+	public static String hash(String valor) {
+		return DigestUtils.sha256Hex(valor);
+	}
 }

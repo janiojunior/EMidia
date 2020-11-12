@@ -15,6 +15,7 @@ import br.unitins.emidia.model.Usuario;
 
 public class UsuarioDAO implements DAO<Usuario> {
 
+	
 	@Override
 	public void inserir(Usuario obj) throws Exception {
 		Exception exception = null;
@@ -348,5 +349,78 @@ public class UsuarioDAO implements DAO<Usuario> {
 
 		return usuario;
 	}
+	
+	public Usuario obterUsuario(String email, String senha) throws Exception {
+		Exception exception = null;
+		Connection conn = DAO.getConnection();
+		
+		Usuario usuario = null;
+
+		StringBuffer sql = new StringBuffer();
+		sql.append("SELECT ");
+		sql.append("  u.id, ");
+		sql.append("  u.data_nascimento, ");
+		sql.append("  u.sexo, ");
+		sql.append("  u.perfil, ");
+		sql.append("  u.nome, ");
+		sql.append("  u.cpf, ");
+		sql.append("  u.email, ");
+		sql.append("  u.senha ");
+		sql.append("FROM  ");
+		sql.append("  usuario u ");
+		sql.append("WHERE ");
+		sql.append("  u.email = ? ");
+		sql.append("  AND u.senha = ? ");
+
+		PreparedStatement stat = null;
+		try {
+
+			stat = conn.prepareStatement(sql.toString());
+			stat.setString(1, email);
+			stat.setString(2, senha);
+
+			ResultSet rs = stat.executeQuery();
+
+			if (rs.next()) {
+				usuario = new Usuario();
+				usuario.setId(rs.getInt("id"));
+				Date data = rs.getDate("data_nascimento");
+				usuario.setDataNascimento(data == null ? null : data.toLocalDate());
+				usuario.setSexo(Sexo.valueOf(rs.getInt("sexo")));
+				usuario.setPerfil(Perfil.valueOf(rs.getInt("perfil")));
+				usuario.setNome(rs.getString("nome"));
+				usuario.setCpf(rs.getString("cpf"));
+				usuario.setEmail(rs.getString("email"));
+				usuario.setSenha(rs.getString("senha"));
+			}
+
+		} catch (SQLException e) {
+			Util.addErrorMessage("Não foi possivel buscar os dados do usuario.");
+			e.printStackTrace();
+			exception = new Exception("Erro ao executar um sql em UsuarioDAO.");
+		} finally {
+			try {
+				if (!stat.isClosed())
+					stat.close();
+			} catch (SQLException e) {
+				System.out.println("Erro ao fechar o Statement");
+				e.printStackTrace();
+			}
+
+			try {
+				if (!conn.isClosed())
+					conn.close();
+			} catch (SQLException e) {
+				System.out.println("Erro a o fechar a conexao com o banco.");
+				e.printStackTrace();
+			}
+		}
+
+		if (exception != null)
+			throw exception;
+
+		return usuario;
+	}
+
 
 }
