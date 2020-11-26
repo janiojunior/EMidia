@@ -4,13 +4,13 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.faces.context.FacesContext;
-import javax.faces.context.Flash;
 import javax.faces.view.ViewScoped;
 import javax.inject.Named;
 
+import br.unitins.emidia.application.Session;
 import br.unitins.emidia.application.Util;
 import br.unitins.emidia.dao.MidiaDAO;
+import br.unitins.emidia.model.ItemVenda;
 import br.unitins.emidia.model.Midia;
 
 @Named
@@ -21,10 +21,6 @@ public class VendaController implements Serializable {
 	private Integer tipoFiltro;
 	private String filtro;
 	private List<Midia> listaMidia;
-	
-	public void novaMidia() {
-		Util.redirect("midia.xhtml");
-	}
 	
 	public void pesquisar() {
 		MidiaDAO dao = new MidiaDAO();
@@ -37,7 +33,34 @@ public class VendaController implements Serializable {
 	}
 	
 	public void addCarrinho(Midia midia) {
-
+		try {
+			MidiaDAO dao = new MidiaDAO();
+			// obtendo os dados atuais da midia
+			midia = dao.obterUm(midia);
+			
+			List<ItemVenda> listaItemVenda = null;
+			Object obj = Session.getInstance().getAttribute("carrinho");
+			
+			if (obj == null) 
+				listaItemVenda = new ArrayList<ItemVenda>();
+			else 
+				listaItemVenda = (List<ItemVenda>) obj;
+			
+			// montando o item de venda
+			ItemVenda item = new ItemVenda();
+			item.setMidia(midia);
+			item.setPreco(midia.getPreco());
+			listaItemVenda.add(item);
+			
+			// atualizando a sessao do carrinho de compras
+			Session.getInstance().setAttribute("carrinho", listaItemVenda);
+			
+			Util.addInfoMessage("O produto: " + midia.getNome() + " foi adicionado ao carrinho.");
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+			Util.addErrorMessage("Problema ao adicionar o produto ao carrinho. Tente novamente.");
+		}
 	}
 
 	public Integer getTipoFiltro() {

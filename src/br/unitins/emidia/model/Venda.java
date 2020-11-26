@@ -9,6 +9,11 @@ public class Venda {
 	private Usuario usuario;
 	private List<ItemVenda> listaItemVenda;
 
+	// método calculado
+	public Double getTotalVenda() {
+		return 0.0;
+	}
+	
 	public Integer getId() {
 		return id;
 	}
@@ -33,4 +38,13 @@ public class Venda {
 		this.usuario = usuario;
 	}
 
+	public List<ItemVenda> getListaItemVenda() {
+		return listaItemVenda;
+	}
+
+	public void setListaItemVenda(List<ItemVenda> listaItemVenda) {
+		this.listaItemVenda = listaItemVenda;
+	}
+	
+	
 }

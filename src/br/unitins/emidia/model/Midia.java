@@ -8,6 +8,15 @@ public class Midia {
 	private Double preco;
 	private Integer estoque;
 	private TipoMidia tipoMidia;
+	
+	public Midia() {
+		// default
+	}
+
+	public Midia(Integer id) {
+		super();
+		this.id = id;
+	}
 
 	public Integer getId() {
 		return id;
